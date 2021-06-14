@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.exceptions.EmptyStackException;
 import com.company.resources.Stack;
 
 public class Main {
@@ -7,31 +8,50 @@ public class Main {
     public static void main(String[] args) {
         Stack stack = new Stack(2);
 
-        stack.BlackPush(10);
-        stack.RedPush(1);
-        stack.RedPush(2);
-        stack.BlackPush(9);
-        stack.BlackPush(8);
+        try {
+            //Insere alguns elementos na pilha
+            stack.BlackPush("BLACK1");
+            stack.RedPush("RED1");
+            stack.RedPush("RED2");
+            stack.BlackPush("BLACK2");
+            stack.BlackPush("BLACK3");
 
-        stack.PrintArray();
+            //Imprime a pilha
+            stack.PrintArray();
 
-        stack.RedPop();
+            //Remove um elemento vermelho da pilha
+            stack.RedPop();
 
-        stack.PrintArray();
+            //Imprime a pilha
+            stack.PrintArray();
 
-        stack.BlackPop();
+            //Remove um elemento preto da pilha
+            stack.BlackPop();
 
-        stack.PrintArray();
+            //Imprime a pilha
+            stack.PrintArray();
 
-        stack.BlackPop();
-        stack.BlackPop();
+            //Remove dois elementos pretos da pilha, deixando a pilha preta vazia
+            stack.BlackPop();
+            stack.BlackPop();
 
-        stack.PrintArray();
+            //Imprime a pilha
+            stack.PrintArray();
 
-        stack.BlackPop();
+            //Tenta remover um elemento preto da pilha, porem, será lançada uma exceção pois a pilha preta está vazia
+            stack.BlackPop();
+        } catch (EmptyStackException error) {
+            System.out.println(error);
+        }
 
-        stack.BlackPush(11);
+        try {
+            //Insere um elemento na pilha preta
+            stack.BlackPush("BLACK4");
 
-        stack.PrintArray();
+            //Imprime a pilha
+            stack.PrintArray();
+        } catch (EmptyStackException error) {
+            System.out.println(error);
+        }
     }
 }

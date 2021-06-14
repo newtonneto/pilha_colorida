@@ -1,8 +1,9 @@
 package com.company.resources;
 
 import com.company.exceptions.EmptyStackException;
+import com.company.interfaces.IStack;
 
-public class Stack {
+public class Stack implements IStack {
     private int capacity;
     private int quantityControllerRed;
     private int quantityControllerBlack;
@@ -34,40 +35,29 @@ public class Stack {
         this.quantityControllerBlack++;
     }
 
-    public Object RedPop () {
-        /*if (quantityControllerRed == 0) {
+    public Object RedPop () throws EmptyStackException {
+        if (quantityControllerRed == 0) {
             throw new EmptyStackException("Red stack is empty");
-        }*/
-
-        try {
-            Object element = this.arrayStack[quantityControllerRed - 1];
-            this.arrayStack[quantityControllerRed - 1] = null;
-            this.quantityControllerRed--;
-
-            return element;
-        } catch (ArrayIndexOutOfBoundsException error) {
-            //throw new EmptyStackException("Red stack is empty");
-            return null;
         }
+
+        Object element = this.arrayStack[quantityControllerRed - 1];
+        this.arrayStack[quantityControllerRed - 1] = null;
+        this.quantityControllerRed--;
+
+        return element;
     }
 
-    public Object BlackPop () {
-        /*if (quantityControllerBlack == 0) {
+    public Object BlackPop () throws EmptyStackException {
+        if (quantityControllerBlack == 0) {
             throw new EmptyStackException("Black stack is empty");
-        }*/
-
-        try {
-            int index = (this.capacity) - this.quantityControllerBlack;
-            System.out.println("index: " + index);
-            Object element = this.arrayStack[index];
-            this.arrayStack[index] = null;
-            this.quantityControllerBlack--;
-
-            return element;
-        } catch (ArrayIndexOutOfBoundsException error) {
-            //throw new EmptyStackException("Red stack is empty");
-            return null;
         }
+
+        int index = (this.capacity) - this.quantityControllerBlack;
+        Object element = this.arrayStack[index];
+        this.arrayStack[index] = null;
+        this.quantityControllerBlack--;
+
+        return element;
     }
 
     public void Realloc () {
@@ -96,6 +86,6 @@ public class Stack {
             }
         }
 
-        System.out.println("\n\n\n");
+        System.out.println("\n");
     }
 }
